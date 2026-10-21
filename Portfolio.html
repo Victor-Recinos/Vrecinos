@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Victor Recinos | Portfolio BTS SIO SISR</title>
+  <style>
+    :root {
+      --bordeaux: #5C0A1E;
+      --bordeaux-clair: #8B1538;
+      --bordeaux-fonce: #3A0612;
+      --accent: #FF6B8A;
+      --texte: #F5E6EA;
+      --carte: rgba(255, 255, 255, 0.06);
+      --bordure: rgba(255, 107, 138, 0.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+      color: var(--texte);
+      background: linear-gradient(-45deg, var(--bordeaux-fonce), var(--bordeaux), var(--bordeaux-clair), var(--bordeaux-fonce));
+      background-size: 400% 400%;
+      animation: fondAnime 18s ease infinite;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    @keyframes fondAnime {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 5%;
+      background: rgba(58, 6, 18, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+    nav .logo { font-weight: 700; color: #fff; text-decoration: none; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav a {
+      color: var(--texte); text-decoration: none; font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+    nav a:hover { color: var(--accent); }
+
+    section {
+      max-width: 1000px; margin: 0 auto;
+      padding: 6rem 5% 3rem;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      color: #fff;
+      animation: apparition 1.2s ease-out both;
+    }
+    .hero .sous-titre {
+      font-size: 1.2rem; margin-top: 0.5rem; color: var(--accent);
+      animation: apparition 1.2s 0.3s ease-out both;
+    }
+    .hero .description {
+      max-width: 600px; margin: 1.5rem auto 2rem;
+      animation: apparition 1.2s 0.6s ease-out both;
+    }
+    .badges { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+    .badge {
+      padding: 0.4rem 1rem; border-radius: 999px;
+      border: 1px solid var(--accent); font-size: 0.85rem;
+    }
+    .bouton {
+      display: inline-block; margin-top: 2rem;
+      padding: 0.8rem 2rem; border-radius: 8px;
+      background: var(--accent); color: var(--bordeaux-fonce);
+      font-weight: 700; text-decoration: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+      animation: apparition 1.2s 0.9s ease-out both;
+    }
+    .bouton:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,107,138,0.35); }
+
+    @keyframes apparition {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Titres de section */
+    h2 {
+      font-size: 2rem; color: #fff; margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    h2::after {
+      content: ""; flex: 1; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    /* Cartes */
+    .grille {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .carte {
+      background: var(--carte);
+      border: 1px solid var(--bordure);
+      border-radius: 14px;
+      padding: 1.5rem;
+      transition: transform 0.3s, border-color 0.3s, background 0.3s;
+    }
+    .carte:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .carte .icone { font-size: 2rem; margin-bottom: 0.75rem; }
+    .carte h3 { color: #fff; margin-bottom: 0.5rem; }
+    .carte p { font-size: 0.95rem; opacity: 0.9; }
+    .carte .tags { margin-top: 1rem; display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .carte .tags span {
+      font-size: 0.75rem; padding: 0.2rem 0.6rem;
+      background: rgba(255,107,138,0.15); border-radius: 6px;
+    }
+
+    /* Compétences : barres animées */
+    .competence { margin-bottom: 1.2rem; }
+    .competence .ligne { display: flex; justify-content: space-between; margin-bottom: 0.4rem; }
+    .barre {
+      height: 8px; background: rgba(255,255,255,0.12);
+      border-radius: 999px; overflow: hidden;
+    }
+    .barre div {
+      height: 100%; width: 0;
+      background: linear-gradient(90deg, var(--accent), #fff);
+      border-radius: 999px;
+      animation: remplir 1.6s ease-out forwards;
+    }
+    @keyframes remplir { to { width: var(--niveau); } }
+
+    /* Timeline */
+    .timeline { border-left: 2px solid var(--accent); padding-left: 1.5rem; }
+    .timeline .etape { position: relative; margin-bottom: 2rem; }
+    .timeline .etape::before {
+      content: ""; position: absolute; left: -2.05rem; top: 0.4rem;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 10px var(--accent);
+    }
+    .timeline .date { color: var(--accent); font-size: 0.9rem; }
+
+    footer {
+      text-align: center; padding: 2rem;
+      font-size: 0.85rem; opacity: 0.7;
+    }
+
+    /* Apparition au scroll */
+    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 700px) {
+      nav ul { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#accueil" class="logo">V. Recinos</a>
+    <ul>
+      <li><a href="#apropos">À propos</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#parcours">Parcours</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ACCUEIL -->
+  <section class="hero" id="accueil">
+    <h1>Victor Recinos</h1>
+    <p class="sous-titre">Étudiant BTS SIO · Option SISR · Cybersécurité</p>
+    <p class="description">
+      Passionné de cybersécurité depuis toujours, je m'intéresse à la protection des systèmes,
+      à l'administration des réseaux et à la défense contre les menaces. Je recherche une alternance
+      pour mettre mes compétences en pratique.
+    </p>
+    <div class="badges">
+      <span class="badge">Réseaux</span>
+      <span class="badge">Systèmes Linux</span>
+      <span class="badge">Cybersécurité</span>
+      <span class="badge">Veille technologique</span>
+    </div>
+    <a href="#projets" class="bouton">Voir mes projets</a>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="apropos">
+    <h2 class="reveal">À propos de moi</h2>
+    <div class="carte reveal">
+      <p>
+        Depuis tout petit, la cybersécurité m'attire : comprendre comment un système peut être
+        attaqué, mais surtout comment il se défend. C'est ce qui m'a naturellement orienté vers
+        l'option <strong>SISR</strong> (Solutions d'Infrastructure, Systèmes et Réseaux) du BTS SIO.
+      </p>
+      <p style="margin-top: 1rem;">
+        Je suis curieux, rigoureux, et j'aime apprendre par la pratique : installer, configurer,
+        tester, puis comprendre pourquoi ça casse. Je suis à la recherche d'une <strong>alternance</strong>
+        pour progresser sur le terrain.
+      </p>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="competences">
+    <h2 class="reveal">Compétences</h2>
+    <div class="carte reveal">
+      <div class="competence">
+        <div class="ligne"><span>Administration Linux</span><span>70%</span></div>
+        <div class="barre"><div style="--niveau: 70%"></div></div>
+      </div>
+      <div class="competence">
+        <div class="ligne"><span>Réseaux (TCP/IP, VLAN, routage)</span><span>65%</span></div>
+        <div class="barre"><div style="--niveau: 65%"></div></div>
+      </div>
+      <div class="competence">
+        <div class="ligne"><span>Sécurité (pare-feu, durcissement)</span><span>60%</span></div>
+        <div class="barre"><div style="--niveau: 60%"></div></div>
+      </div>
+      <div class="competence">
+        <div class="ligne"><span>Scripting (Bash, Python)</span><span>50%</span></div>
+        <div class="barre"><div style="--niveau: 50%"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETS -->
+  <section id="projets">
+    <h2 class="reveal">Projets</h2>
+    <div class="grille">
+      <div class="carte reveal">
+        <div class="icone">🛡️</div>
+        <h3>Pare-feu pfSense</h3>
+        <p>Mise en place d'un pare-feu avec règles de filtrage et segmentation du réseau.</p>
+        <div class="tags"><span>pfSense</span><span>Réseau</span></div>
+      </div>
+      <div class="carte reveal">
+        <div class="icone">🖥️</div>
+        <h3>Serveur Linux durci</h3>
+        <p>Configuration d'un serveur Debian avec SSH sécurisé, fail2ban et mises à jour automatiques.</p>
+        <div class="tags"><span>Debian</span><span>SSH</span><span>Sécurité</span></div>
+      </div>
+      <div class="carte reveal">
+        <div class="icone">🔍</div>
+        <h3>Analyse de trafic</h3>
+        <p>Capture et analyse de paquets avec Wireshark pour identifier des comportements suspects.</p>
+        <div class="tags"><span>Wireshark</span><span>Analyse</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS -->
+  <section id="parcours">
+    <h2 class="reveal">Parcours</h2>
+    <div class="timeline reveal">
+      <div class="etape">
+        <div class="date">2026 – aujourd'hui</div>
+        <h3>BTS SIO option SISR</h3>
+        <p>Première année, [nom de l'établissement].</p>
+      </div>
+      <div class="etape">
+        <div class="date">[Année]</div>
+        <h3>Baccalauréat [filière]</h3>
+        <p>[Établissement].</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 class="reveal">Contact</h2>
+    <div class="carte reveal" style="text-align:center;">
+      <p>Je suis ouvert à une alternance en administration systèmes et réseaux ou en cybersécurité.</p>
+      <a href="mailto:[ton-email]" class="bouton">Me contacter</a>
+    </div>
+  </section>
+
+  <footer>© 2026 Victor Recinos · Portfolio BTS SIO SISR</footer>
+
+  <script>
+    // Apparition des éléments au scroll
+    const observer = new IntersectionObserver((entrees) => {
+      entrees.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
